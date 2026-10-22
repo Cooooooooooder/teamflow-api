@@ -1,59 +1,272 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# TeamFlow — Team Collaboration & Task Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+TeamFlow is a full-stack team collaboration and task management application built with a **Laravel REST API** and a **React + TypeScript** frontend.
 
-## About Laravel
+It helps teams organize workspaces, manage team members, assign tasks, collaborate through comments, and receive notifications when tasks are assigned.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Authentication
+- User registration and login
+- Secure session-based authentication with Laravel Sanctum
+- Logout and session restoration
+- Protected API endpoints
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Workspace Management
+- Create and view workspaces
+- Select a workspace
+- Delete workspaces with owner-only authorization
+- Automatically delete related tasks, comments, and memberships when a workspace is deleted
 
-## Learning Laravel
+### Team Member Management
+- View workspace members
+- Add and remove team members
+- Support for Owner and Member roles
+- Role-based access control
+- Prevent duplicate memberships
+- Restrict member management to workspace owners
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Task Management
+- Create, view, update, and delete tasks
+- Set task status and priority
+- Assign tasks to workspace members
+- Set task due dates
+- Display task creators and assignees
+- Validate task assignments against workspace membership
+- Prevent unauthorized access across workspaces
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Task Comments
+- View task comments
+- Add and delete comments
+- Restrict comment access to workspace members
 
-## Laravel Sponsors
+### Notifications
+- Notify users when a task is assigned to them during task creation
+- View notifications
+- Mark individual notifications as read
+- Mark all notifications as read
+- Track unread notifications
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Security and Testing
+- Authentication and authorization checks
+- Workspace-level access control
+- Protection against unauthorized resource access
+- Automated backend tests using PHPUnit
 
-### Premium Partners
+## Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Technology | Purpose |
+|---|---|
+| PHP 8.3 | Backend programming language |
+| Laravel 12 | REST API development |
+| Laravel Sanctum | SPA authentication |
+| React | Frontend user interface |
+| TypeScript | Type-safe frontend development |
+| Vite | Frontend development and production builds |
+| MySQL / compatible relational database | Data persistence |
+| PHPUnit | Automated backend testing |
 
-## Contributing
+## Project Structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The project is organized into two separate applications:
 
-## Code of Conduct
+```text
+TeamFlow/
+├── teamflow-api/    # Laravel REST API
+└── teamflow-web/    # React + TypeScript frontend
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Getting Started
 
-## Security Vulnerabilities
+### Prerequisites
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Make sure you have the following installed:
+
+- PHP 8.3 or a compatible version
+- Composer
+- Node.js and npm
+- MySQL or another database supported by your Laravel configuration
+- Git
+
+### 1. Clone the Repositories
+
+Clone the backend and frontend repositories separately:
+
+```bash
+git clone https://github.com/Cooooooooooder/teamflow-api
+git clone https://github.com/Cooooooooooder/teamflow-web
+```
+
+
+### 2. Set Up the Backend
+
+Navigate to the Laravel project directory:
+
+```bash
+cd teamflow-api
+```
+
+Install PHP dependencies:
+
+```bash
+composer install
+```
+
+Create the environment file:
+
+```bash
+cp .env.example .env
+```
+
+On Windows Command Prompt, you can use:
+
+```cmd
+copy .env.example .env
+```
+
+Generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+Configure your database credentials in `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=teamflow
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
+```
+
+Update the database name and credentials to match your local environment.
+
+Run the database migrations:
+
+```bash
+php artisan migrate
+```
+
+Start the Laravel development server:
+
+```bash
+php artisan serve
+```
+
+The backend will normally be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+### 3. Configure SPA Authentication
+
+TeamFlow uses Laravel Sanctum for session-based authentication between the React frontend and Laravel backend.
+
+Configure the relevant environment variables in the backend `.env` file. For local development, the configuration should match your frontend origin and backend host.
+
+Example:
+
+```env
+APP_URL=http://localhost:8000
+SANCTUM_STATEFUL_DOMAINS=localhost:5173,127.0.0.1:5173,localhost:8000,127.0.0.1:8000
+```
+
+Ensure that the Laravel Sanctum stateful middleware and CORS configuration are correctly configured for your frontend origin, including credentials support.
+
+Refer to the [Laravel Sanctum documentation](https://laravel.com/docs/sanctum) for additional configuration details.
+
+### 4. Set Up the Frontend
+
+Open another terminal and navigate to the frontend directory:
+
+```bash
+cd teamflow-web
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Configure the frontend API base URL if your existing API client requires an environment variable. Use the backend URL:
+
+```text
+http://localhost:8000
+```
+
+Start the Vite development server:
+
+```bash
+npm run dev
+```
+
+The frontend will normally be available at:
+
+```text
+http://localhost:5173
+```
+
+### 5. Run Backend Tests
+
+From the backend directory, run:
+
+```bash
+php artisan test
+```
+
+The current verified test suite contains **52 passing tests and 147 assertions**. Results may change as the project evolves.
+
+### 6. Build the Frontend
+
+From the frontend directory, run:
+
+```bash
+npm run build
+```
+
+This command runs the TypeScript build checks and creates an optimized production build using Vite.
+
+## Authorization Rules
+
+TeamFlow enforces workspace-level access restrictions.
+
+- Guests cannot access protected resources.
+- Workspace members can access permitted workspace resources.
+- Only workspace owners can manage members and delete their workspace.
+- Tasks cannot be assigned to users who are not members of the relevant workspace.
+- Users cannot access another user's private notifications.
+
+## Future Improvements
+
+Potential future enhancements include:
+
+- Real-time notifications
+- Email invitations
+- Task attachments
+- Task filtering and search
+- Kanban board view
+- Activity history
+- Deployment with a production database
+
+These are possible future improvements, not features currently claimed as implemented.
+
+## Project Goals
+
+This project demonstrates practical experience with:
+
+- RESTful API design
+- Laravel controllers, models, migrations, and relationships
+- Authentication and authorization
+- React and TypeScript integration
+- Frontend state management and API communication
+- Relational database design
+- Automated feature testing
+- Responsive user interface development
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is available for educational and portfolio purposes. Add a license file if you intend to distribute it under a specific open-source license.
