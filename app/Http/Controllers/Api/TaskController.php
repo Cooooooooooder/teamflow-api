@@ -9,6 +9,7 @@ use App\Http\Requests\StoreTaskRequest;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Notifications\TeamFlowNotification;
 
 class TaskController extends Controller
 {
@@ -68,6 +69,25 @@ class TaskController extends Controller
             'creator:id,name,email',
             'assignee:id,name,email',
         ]);
+
+
+        if (
+            $task->assignee &&
+            $task->assignee->id !== $request->user()->id
+        ) {
+            $task->assignee->notify(
+                new TeamFlowNotification(
+                    type: 'task_assigned',
+                    message: 'You have been assigned a new task: ' . $task->title,
+                    data: [
+                        'task_id' => $task->id,
+                        'workspace_id' => $workspace->id,
+                        'task_title' => $task->title,
+                    ],
+                )
+            );
+        }
+
 
         return response()->json([
             'message' => 'Task created successfully.',

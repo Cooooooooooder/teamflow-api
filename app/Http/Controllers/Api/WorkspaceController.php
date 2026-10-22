@@ -55,4 +55,25 @@ class WorkspaceController extends Controller
             ->response()
             ->setStatusCode(201);
     }
+
+    public function destroy(Request $request, Workspace $workspace)
+    {
+        $user = $request->user();
+
+        $membership = $workspace->members()
+            ->where('users.id', $user->id)
+            ->first();
+
+        if (! $membership || $membership->pivot->role !== 'owner') {
+            return response()->json([
+                'message' => 'Only the workspace owner can delete this workspace.',
+            ], 403);
+        }
+
+        $workspace->delete();
+
+        return response()->json([
+            'message' => 'Workspace deleted successfully.',
+        ]);
+    }
 }
